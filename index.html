@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELITE AAYUSH | THE IMMORTAL GAMER</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@500;700&display=swap');
+
+        :root {
+            --neon-orange: #ff4e00;
+            --neon-yellow: #f5ed00;
+            --neon-blue: #00f2ff;
+            --bg-dark: #020202;
+            --glow: 0 0 30px rgba(255, 78, 0, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ULTIMATE SCROLL PROGRESS */
+        #progressbar { 
+            position: fixed; top: 0; left: 0; width: 0%; height: 8px; 
+            background: linear-gradient(90deg, var(--neon-orange), var(--neon-yellow)); 
+            box-shadow: var(--glow); z-index: 10000; 
+        }
+
+        /* NAVIGATION */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; background: rgba(0,0,0,0.95);
+            border-bottom: 2px solid var(--neon-orange);
+            position: fixed; width: 100%; z-index: 9000; backdrop-filter: blur(15px);
+        }
+        .logo { font-family: 'Orbitron'; font-size: 1.5rem; color: var(--neon-yellow); letter-spacing: 5px; font-weight: 900; }
+
+        /* MEGA SECTIONS */
+        section { padding: 150px 10%; min-height: 100vh; position: relative; border-bottom: 1px solid #111; }
+
+        .massive-header {
+            font-family: 'Orbitron'; font-size: clamp(2.5rem, 8vw, 8rem);
+            text-transform: uppercase; line-height: 0.9; text-align: left;
+            margin-bottom: 60px; color: transparent; -webkit-text-stroke: 1px #444;
+        }
+        .massive-header span { color: #fff; -webkit-text-stroke: 0px; text-shadow: 0 0 50px var(--neon-orange); }
+
+        /* HERO ZONE */
+        #hero { display: flex; align-items: center; justify-content: center; text-align: center; }
+
+        /* IMAGE VAULT */
+        .vault-box {
+            display: flex; gap: 60px; align-items: center; justify-content: center;
+        }
+        .image-frame {
+            width: 100%; max-width: 450px; height: 600px; border: 5px solid var(--neon-orange);
+            position: relative; overflow: hidden; transform: skew(-5deg);
+            box-shadow: 0 0 80px rgba(255, 78, 0, 0.3);
+        }
+        .image-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* FIXED ELIMINATION FEED */
+        .feed-container { 
+            background: #080808; padding: 20px; border: 2px solid var(--neon-orange); border-radius: 15px; 
+            height: 350px; overflow: hidden; position: relative;
+        }
+        .kill-row { 
+            font-size: clamp(1.1rem, 4vw, 1.6rem); padding: 15px; border-bottom: 1px solid #222; 
+            animation: slideUp 10s infinite linear; font-family: 'Orbitron';
+        }
+        .headshot-icon { color: #ff0000; font-weight: 900; }
+
+        /* WEAPON SPECS */
+        .spec-container { margin-top: 40px; }
+        .spec-bar { width: 100%; height: 18px; background: #111; margin: 8px 0; border: 1px solid #333; }
+        .spec-fill { height: 100%; background: var(--neon-orange); box-shadow: 0 0 15px var(--neon-orange); }
+
+        /* NEW STYLED SECTIONS */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
+        .info-card { background: #080808; padding: 40px; border-left: 5px solid var(--neon-orange); transition: 0.3s; }
+        .info-card h3 { font-family: 'Orbitron'; font-size: 1.8rem; margin-bottom: 15px; color: var(--neon-yellow); }
+        .info-card p { font-size: 1.2rem; color: #888; line-height: 1.6; }
+
+        /* PARALLAX MARQUEE */
+        .parallax-text { font-size: 12vw; opacity: 0.04; font-family: 'Orbitron'; position: absolute; z-index: -1; white-space: nowrap; }
+
+        @keyframes slideUp { 0% { transform: translateY(0); } 100% { transform: translateY(-400px); } }
+
+        /* BUTTONS & INPUTS */
+        .elite-btn {
+            background: var(--neon-orange); color: #000; padding: 20px 60px;
+            font-family: 'Orbitron'; font-weight: 900; font-size: 1.2rem;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            border: none; cursor: pointer; transition: 0.4s;
+        }
+        .elite-btn:hover { background: var(--neon-yellow); box-shadow: 0 0 40px var(--neon-yellow); transform: scale(1.05); }
+
+        .elite-input {
+            padding: 20px; background: #111; border: 2px solid #333; color: white;
+            font-size: 1.2rem; font-family: 'Rajdhani'; outline: none; transition: 0.3s; width: 100%;
+        }
+        select.elite-input {
+            appearance: none; cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ff4e00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 20px center;
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            section { padding: 100px 5%; }
+            .vault-box { flex-direction: column; text-align: center; gap: 40px; }
+            .image-frame { height: 500px; }
+            .stats-flex { flex-direction: column; gap: 15px !important; }
+        }
+
+        @media (max-width: 600px) {
+            nav { padding: 15px 3%; }
+            nav ul { display: none !important; } 
+            .logo { font-size: 1.1rem; letter-spacing: 2px; }
+            .massive-header { text-align: center; }
+            .massive-header span { display: block; }
+            .elite-btn { width: 100%; padding: 20px; }
+            footer h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progressbar"></div>
+
+    <nav>
+        <div class="logo">AAYUSH PRO</div>
+        <ul style="display:flex; list-style:none; gap:25px; font-size: 1.1rem;">
+            <li><a href="#hero" style="color:white; text-decoration:none;">LOBBY</a></li>
+            <li><a href="#vault" style="color:white; text-decoration:none;">VAULT</a></li>
+            <li><a href="#stats" style="color:white; text-decoration:none;">STATS</a></li>
+            <li><a href="#clan" style="color:white; text-decoration:none;">CLAN</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <div class="parallax-text">AAYUSH AAYUSH AAYUSH</div>
+        <div>
+            <p style="letter-spacing: 10px; color: var(--neon-orange); margin-bottom: 15px; font-size: 1rem;">INITIALIZING SYSTEM...</p>
+            <h1 class="massive-header">THE <span>GHOST</span></h1>
+            <h1 class="massive-header">COMMANDER</h1>
+        </div>
+    </section>
+
+    <section id="vault">
+        <div class="vault-box">
+            <div class="image-frame">
+                <img src="boy.jpg" alt="Aayush Character">
+            </div>
+            <div style="max-width: 550px;">
+                <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-family: 'Orbitron'; color: var(--neon-yellow);">ELITE AAYUSH</h2>
+                <p style="font-size: 1.3rem; color: #888; margin-top: 25px; line-height: 1.5;">The nightmare of every squad. Tactical expert, headshot machine, and the ultimate survivor.</p>
+                <div style="margin-top: 40px;">
+                    <button class="elite-btn">VIEW SKINS</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats">
+        <h1 class="massive-header">COMBAT <span>DATA</span></h1>
+        <div class="stats-flex" style="display: flex; justify-content: space-between; text-align: center; gap: 20px;">
+            <div style="flex: 1; background: #080808; padding: 60px 20px; border-bottom: 5px solid var(--neon-orange);">
+                <h3 style="font-size: 3.5rem; color: var(--neon-orange);">9,999+</h3>
+                <p style="font-size: 1.1rem; letter-spacing: 4px;">KILLS</p>
+            </div>
+            <div style="flex: 1; background: #080808; padding: 60px 20px; border-bottom: 5px solid var(--neon-yellow);">
+                <h3 style="font-size: 3.5rem; color: var(--neon-yellow);">1,200</h3>
+                <p style="font-size: 1.1rem; letter-spacing: 4px;">BOOYAHS</p>
+            </div>
+            <div style="flex: 1; background: #080808; padding: 60px 20px; border-bottom: 5px solid #fff;">
+                <h3 style="font-size: 3.5rem; color: #fff;">92%</h3>
+                <p style="font-size: 1.1rem; letter-spacing: 4px;">ACCURACY</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h1 class="massive-header">ELIMINATION <span>FEED</span></h1>
+        <div class="feed-container">
+            <div class="kill-row">AAYUSH <span class="headshot-icon">☠️ HEADSHOT</span> SQUAD_WIPE_66</div>
+            <div class="kill-row">AAYUSH 🔫 M1014 NOOB_DESTROYER</div>
+            <div class="kill-row">AAYUSH <span class="headshot-icon">☠️ HEADSHOT</span> PRO_SNIPER_01</div>
+            <div class="kill-row">AAYUSH 💣 GRENADE CAMPERS_NEST</div>
+            <div class="kill-row">AAYUSH <span class="headshot-icon">☠️ HEADSHOT</span> ajjubhai@94</div>
+            <div class="kill-row">AAYUSH <span class="headshot-icon">☠️ HEADSHOT</span> Tonde_Gamer</div>
+        </div>
+    </section>
+
+    <section>
+        <h1 class="massive-header">RANK <span>SUPREMACY</span></h1>
+        <div class="grid-container">
+            <div class="info-card">
+                <h3>GLOBAL ELITE</h3>
+                <p>Maintaining a position in the Top 0.1% worldwide. Consistent Grandmaster since Season 12.</p>
+            </div>
+            <div class="info-card" style="border-color: var(--neon-yellow);">
+                <h3>MAP DOMINANCE</h3>
+                <p>Mastery over Bermuda Remastered, Purgatory, and Kalahari. Strategic drop points for maximum loot.</p>
+            </div>
+            <div class="info-card">
+                <h3>SQUAD ALLIANCE</h3>
+                <p>Lead over 500 successful clan wars. Tactical coordination and zero-loss communication protocol.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h1 class="massive-header">WEAPON <span>ARMY</span></h1>
+        <div class="spec-container">
+            <h3 style="font-size: 1.5rem; font-family: 'Orbitron';">EVO XM8 - GUARDIAN</h3>
+            <div class="spec-bar"><div class="spec-fill" style="width: 98%;"></div></div>
+            <h3 style="font-size: 1.5rem; font-family: 'Orbitron'; margin-top: 20px;">MP40 - COBRA MAX</h3>
+            <div class="spec-bar"><div class="spec-fill" style="width: 95%;"></div></div>
+            <h3 style="font-size: 1.5rem; font-family: 'Orbitron'; margin-top: 20px;">M1887 - ONE PUNCH</h3>
+            <div class="spec-bar"><div class="spec-fill" style="width: 90%;"></div></div>
+            <h3 style="font-size: 1.5rem; font-family: 'Orbitron'; margin-top: 20px;">AWM - GHOST SKIN</h3>
+            <div class="spec-bar"><div class="spec-fill" style="width: 100%;"></div></div>
+        </div>
+    </section>
+
+    <section id="clan">
+        <h1 class="massive-header">JOIN <span>AAYUSH</span></h1>
+        <form id="submit-to-google-sheet" style="display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto;">
+            <input type="hidden" name="device" id="device_input">
+            <input type="hidden" name="location" id="location_input">
+
+            <input type="text" name="uid" placeholder="YOUR GAME UID" class="elite-input" required>
+            <input type="text" name="kd" placeholder="K/D RATIO" class="elite-input" required>
+            
+            <select name="rank" class="elite-input" required>
+                <option value="" disabled selected>YOUR RANK</option>
+                <option value="Diamond">DIAMOND</option>
+                <option value="Heroic">HEROIC</option>
+                <option value="Grandmaster">GRANDMASTER</option>
+            </select>
+
+            <textarea name="skills" rows="5" placeholder="TELL US ABOUT YOUR SKILLS" class="elite-input" required></textarea>
+            <button type="submit" id="submitBtn" class="elite-btn">SUBMIT REQUEST</button>
+        </form>
+        <span id="successMsg" style="display:block; text-align:center; color: var(--neon-yellow); font-family: 'Orbitron'; font-size: 1.5rem; margin-top: 20px;"></span>
+    </section>
+
+    <footer style="padding: 60px 0; text-align: center; background: #000; border-top: 5px solid var(--neon-orange);">
+        <h1 style="font-family: 'Orbitron'; font-size: clamp(2rem, 8vw, 4rem); margin-bottom: 10px;">AAYUSH</h1>
+        <p style="color: #555; letter-spacing: 4px; font-size: 1rem;">OFFICIAL GAMER PORTFOLIO | 2026</p>
+    </footer>
+
+    <script>
+        // 1. SCROLL PROGRESS BAR
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressbar").style.width = scrolled + "%";
+        };
+
+        // 2. DEVICE NAME DETECTION
+        function getDevice() {
+            const ua = navigator.userAgent;
+            if (/android/i.test(ua)) return "Android Device";
+            if (/iPad|iPhone|iPod/.test(ua)) return "iOS Device";
+            if (/Windows/i.test(ua)) return "Windows PC";
+            return "Unknown Device";
+        }
+        document.getElementById('device_input').value = getDevice();
+
+        // 3. LOCATION DETECTION (IP API)
+        fetch('https://ipapi.co/json/')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('location_input').value = `${data.city}, ${data.country_name}`;
+            })
+            .catch(() => {
+                document.getElementById('location_input').value = "Location Blocked";
+            });
+
+        // 4. GOOGLE SHEET FORM SUBMISSION
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzUqiaOiRf1vQFvTxe3MK5UV3Gp1cDSMUs5oAxSnpModlkLZyyun6djU3fXzbS0xHyRvw/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const msg = document.getElementById("successMsg");
+        const submitBtn = document.getElementById("submitBtn");
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            submitBtn.innerHTML = "SYSTEM SYNCING...";
+            submitBtn.disabled = true;
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    msg.innerHTML = "REQUEST SENT SUCCESSFULLY! 🚀";
+                    submitBtn.innerHTML = "SUBMIT REQUEST";
+                    submitBtn.disabled = false;
+                    form.reset();
+                    setTimeout(() => msg.innerHTML = "", 5000);
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    msg.innerHTML = "ERROR! PLEASE TRY AGAIN.";
+                    msg.style.color = "red";
+                    submitBtn.disabled = false;
+                });
+        });
+    </script>
+</body>
+</html>
