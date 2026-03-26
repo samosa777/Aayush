@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>WEAPON VAULT | ELITE AAYUSH</title>
     
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
@@ -24,6 +24,7 @@
             color: #fff;
             font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
+            width: 100%;
         }
 
         /* Navigation */
@@ -33,89 +34,101 @@
             border-bottom: 2px solid var(--neon-orange);
             position: fixed; width: 100%; z-index: 10000; backdrop-filter: blur(15px);
         }
-        .logo { font-family: 'Orbitron'; font-size: 1.5rem; color: var(--neon-yellow); font-weight: 900; letter-spacing: 2px; }
+        .logo { font-family: 'Orbitron'; font-size: clamp(1rem, 4vw, 1.5rem); color: var(--neon-yellow); font-weight: 900; letter-spacing: 2px; }
 
-        /* FIXED: Removed the white bullet points */
         .nav-links { list-style: none; }
 
         /* Sections */
-        section { padding: 120px 8% 50px; min-height: 100vh; display: flex; flex-direction: column; align-items: center;}
+        section { padding: 100px 5% 50px; min-height: 100vh; display: flex; flex-direction: column; align-items: center;}
         
         .massive-header {
-            font-family: 'Orbitron'; font-size: clamp(2rem, 8vw, 5rem);
-            text-transform: uppercase; margin-bottom: 40px; color: transparent; -webkit-text-stroke: 1px #444;
+            font-family: 'Orbitron'; font-size: clamp(1.8rem, 8vw, 5rem);
+            text-transform: uppercase; margin-bottom: 30px; color: transparent; 
+            -webkit-text-stroke: 1px #444; text-align: center;
         }
         .massive-header span { color: #fff; -webkit-text-stroke: 0px; text-shadow: var(--glow); }
 
         /* Gallery Grid */
         .gallery-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px; width: 100%; max-width: 1200px;
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; width: 100%; max-width: 1200px;
         }
 
         .gun-card {
             background: #080808; border: 2px solid var(--neon-orange);
             padding: 15px; text-align: center; cursor: pointer; transition: 0.4s; border-radius: 5px;
+            display: flex; flex-direction: column;
         }
-        .gun-card:hover { transform: translateY(-10px); box-shadow: var(--glow); border-color: var(--neon-yellow); }
+        .gun-card:hover { transform: translateY(-5px); box-shadow: var(--glow); border-color: var(--neon-yellow); }
 
-        .gun-card model-viewer { width: 100%; height: 200px; background: #000; margin-bottom: 10px; }
-        .gun-card h3 { font-family: 'Orbitron'; color: var(--neon-yellow); }
+        .gun-card model-viewer { width: 100%; height: 220px; background: #000; margin-bottom: 10px; border-radius: 5px; }
+        .gun-card h3 { font-family: 'Orbitron'; color: var(--neon-yellow); font-size: 1.2rem; }
+        .gun-card p { color: #888; font-weight: bold; letter-spacing: 1px; font-size: 0.9rem; }
 
         /* Modal Area */
         #fullview-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(2, 2, 2, 0.98); z-index: 20000; backdrop-filter: blur(10px);
         }
 
         .close-btn {
-            position: absolute; top: 30px; right: 40px; background: var(--neon-orange);
-            color: black; font-family: 'Orbitron'; font-weight: 900; padding: 10px 20px;
-            cursor: pointer; z-index: 20005; clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
-            border: none;
+            position: absolute; top: 20px; right: 20px; background: var(--neon-orange);
+            color: black; font-family: 'Orbitron'; font-weight: 900; padding: 10px 15px;
+            cursor: pointer; z-index: 20005; clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+            border: none; font-size: 0.8rem;
         }
 
         /* Futuristic Nav Buttons */
         .nav-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
             background: transparent;
-            color: rgba(255, 78, 0, 0.8);
+            color: rgba(255, 78, 0, 0.6);
             border: none;
             font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 900;
-            padding: 20px;
+            padding: 15px;
             cursor: pointer; z-index: 20001;
-            transition: 0.4s ease;
+            transition: 0.3s ease;
             text-shadow: 0 0 10px rgba(255, 78, 0, 0.5);
             user-select: none;
         }
 
         .nav-btn:hover {
             color: var(--neon-yellow);
-            text-shadow: 0 0 20px var(--neon-yellow), 0 0 30px var(--neon-orange);
-            transform: translateY(-50%) scale(1.1);
+            text-shadow: 0 0 20px var(--neon-yellow);
         }
 
-        @media (max-width: 768px) {
-            .nav-btn { font-size: 2.5rem; padding: 10px; }
-            .prev { left: 5px !important; }
-            .next { right: 5px !important; }
-        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
 
-        .prev { left: 30px; }
-        .next { right: 30px; }
+        /* Bottom Info Text in Modal */
+        .modal-info {
+            position: absolute; bottom: 40px; width: 100%; text-align: center; 
+            font-family: 'Orbitron'; pointer-events: none; padding: 0 20px;
+        }
+        .modal-info h2 { color: var(--neon-yellow); font-size: clamp(1.2rem, 5vw, 2.5rem); text-shadow: 0 0 10px #000; }
+        .modal-info p { color: #fff; letter-spacing: 2px; font-size: clamp(0.8rem, 3vw, 1.2rem); }
 
         .elite-btn {
-            background: var(--neon-orange); color: #000; padding: 10px 25px;
+            background: var(--neon-orange); color: #000; padding: 8px 15px;
             font-family: 'Orbitron'; font-weight: 900; text-decoration: none;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-            display: inline-block;
+            display: inline-block; font-size: 0.8rem;
         }
 
         .status-msg {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-family: 'Orbitron'; color: var(--neon-yellow); font-size: 1.5rem; pointer-events: none;
+            font-family: 'Orbitron'; color: var(--neon-yellow); font-size: 1rem; pointer-events: none;
+            text-align: center; width: 100%;
+        }
+
+        /* Mobile Specific Adjustment */
+        @media (max-width: 600px) {
+            .gallery-container { grid-template-columns: 1fr; }
+            section { padding-top: 90px; }
+            .nav-btn { background: rgba(0,0,0,0.3); border-radius: 50%; height: 50px; width: 50px; display: flex; align-items: center; justify-content: center; }
         }
     </style>
 </head>
@@ -124,15 +137,14 @@
     <nav>
         <div class="logo">AAYUSH PRO</div>
         <ul class="nav-links">
-            <li><a href="index.html" class="elite-btn">BACK TO LOBBY</a></li>
+            <li><a href="index.html" class="elite-btn">LOBBY</a></li>
         </ul>
     </nav>
 
     <section>
         <h1 class="massive-header">WEAPON <span>VAULT</span></h1>
         <div class="gallery-container" id="gallery">
-            <!-- गन्स यहाँ लोड होंगी -->
-        </div>
+            </div>
     </section>
 
     <div id="fullview-modal">
@@ -160,7 +172,7 @@
         guns.forEach((gun, index) => {
             gallery.innerHTML += `
                 <div class="gun-card" onclick="openGun(${index})">
-                    <model-viewer src="${gun.file}" auto-rotate interaction-prompt="none"></model-viewer>
+                    <model-viewer src="${gun.file}" auto-rotate interaction-prompt="none" shadow-intensity="1"></model-viewer>
                     <h3>${gun.name}</h3>
                     <p>${gun.skin}</p>
                 </div>
@@ -175,7 +187,7 @@
             
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
-            status.innerHTML = "LOADING WEAPON...";
+            status.innerHTML = "CALIBRATING WEAPON...";
 
             container.innerHTML = `
                 <model-viewer 
@@ -185,11 +197,12 @@
                     auto-rotate
                     shadow-intensity="2"
                     exposure="1.2"
+                    touch-action="pan-y"
                     style="width: 100%; height: 100%;">
                 </model-viewer>
-                <div style="position:absolute; bottom:30px; width:100%; text-align:center; font-family:'Orbitron'; pointer-events:none;">
-                    <h2 style="color:var(--neon-yellow); font-size:2rem;">${guns[index].name}</h2>
-                    <p style="letter-spacing:3px;">${guns[index].skin}</p>
+                <div class="modal-info">
+                    <h2>${guns[index].name}</h2>
+                    <p>${guns[index].skin}</p>
                 </div>
             `;
 
@@ -209,6 +222,11 @@
             document.getElementById('viewer-container').innerHTML = ''; 
             document.body.style.overflow = 'auto';
         }
+
+        // Close modal on 'Esc' key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") closeGun();
+        });
     </script>
 </body>
 </html>
