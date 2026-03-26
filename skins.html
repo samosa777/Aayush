@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEAPON VAULT | ELITE AAYUSH</title>
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@500;700&display=swap');
+
+        :root {
+            --neon-orange: #ff4e00;
+            --neon-yellow: #f5ed00;
+            --bg-dark: #020202;
+            --glow: 0 0 30px rgba(255, 78, 0, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(0,0,0,0.95);
+            border-bottom: 2px solid var(--neon-orange);
+            position: fixed; width: 100%; z-index: 10000; backdrop-filter: blur(15px);
+        }
+        .logo { font-family: 'Orbitron'; font-size: 1.5rem; color: var(--neon-yellow); font-weight: 900; letter-spacing: 2px; }
+
+        /* FIXED: Removed the white bullet points */
+        .nav-links { list-style: none; }
+
+        /* Sections */
+        section { padding: 120px 8% 50px; min-height: 100vh; display: flex; flex-direction: column; align-items: center;}
+        
+        .massive-header {
+            font-family: 'Orbitron'; font-size: clamp(2rem, 8vw, 5rem);
+            text-transform: uppercase; margin-bottom: 40px; color: transparent; -webkit-text-stroke: 1px #444;
+        }
+        .massive-header span { color: #fff; -webkit-text-stroke: 0px; text-shadow: var(--glow); }
+
+        /* Gallery Grid */
+        .gallery-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; width: 100%; max-width: 1200px;
+        }
+
+        .gun-card {
+            background: #080808; border: 2px solid var(--neon-orange);
+            padding: 15px; text-align: center; cursor: pointer; transition: 0.4s; border-radius: 5px;
+        }
+        .gun-card:hover { transform: translateY(-10px); box-shadow: var(--glow); border-color: var(--neon-yellow); }
+
+        .gun-card model-viewer { width: 100%; height: 200px; background: #000; margin-bottom: 10px; }
+        .gun-card h3 { font-family: 'Orbitron'; color: var(--neon-yellow); }
+
+        /* Modal Area */
+        #fullview-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(2, 2, 2, 0.98); z-index: 20000; backdrop-filter: blur(10px);
+        }
+
+        .close-btn {
+            position: absolute; top: 30px; right: 40px; background: var(--neon-orange);
+            color: black; font-family: 'Orbitron'; font-weight: 900; padding: 10px 20px;
+            cursor: pointer; z-index: 20005; clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+            border: none;
+        }
+
+        /* Futuristic Nav Buttons */
+        .nav-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: transparent;
+            color: rgba(255, 78, 0, 0.8);
+            border: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            padding: 20px;
+            cursor: pointer; z-index: 20001;
+            transition: 0.4s ease;
+            text-shadow: 0 0 10px rgba(255, 78, 0, 0.5);
+            user-select: none;
+        }
+
+        .nav-btn:hover {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 20px var(--neon-yellow), 0 0 30px var(--neon-orange);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-btn { font-size: 2.5rem; padding: 10px; }
+            .prev { left: 5px !important; }
+            .next { right: 5px !important; }
+        }
+
+        .prev { left: 30px; }
+        .next { right: 30px; }
+
+        .elite-btn {
+            background: var(--neon-orange); color: #000; padding: 10px 25px;
+            font-family: 'Orbitron'; font-weight: 900; text-decoration: none;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            display: inline-block;
+        }
+
+        .status-msg {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-family: 'Orbitron'; color: var(--neon-yellow); font-size: 1.5rem; pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">AAYUSH PRO</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="elite-btn">BACK TO LOBBY</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h1 class="massive-header">WEAPON <span>VAULT</span></h1>
+        <div class="gallery-container" id="gallery">
+            <!-- गन्स यहाँ लोड होंगी -->
+        </div>
+    </section>
+
+    <div id="fullview-modal">
+        <button class="close-btn" onclick="closeGun()">CLOSE [X]</button>
+        
+        <button class="nav-btn prev" onclick="changeGun(-1)">&#11164;</button>
+        <button class="nav-btn next" onclick="changeGun(1)">&#11166;</button>
+
+        <div id="status-display" class="status-msg"></div>
+        <div id="viewer-container" style="width: 100%; height: 100%;"></div>
+    </div>
+
+    <script>
+        const guns = [
+            { file: 'gun1.glb', name: 'EVO XM8', skin: 'GUARDIAN SKIN' },
+            { file: 'gun2.glb', name: 'MP40', skin: 'COBRA MAX' },
+            { file: 'gun3.glb', name: 'M1887', skin: 'ONE PUNCH' },
+            { file: 'gun4.glb', name: 'AWM', skin: 'GHOST SKIN' },
+            { file: 'gun5.glb', name: 'KATANA', skin: 'BLOOD MOON' }
+        ];
+
+        let currentGunIndex = 0;
+
+        const gallery = document.getElementById('gallery');
+        guns.forEach((gun, index) => {
+            gallery.innerHTML += `
+                <div class="gun-card" onclick="openGun(${index})">
+                    <model-viewer src="${gun.file}" auto-rotate interaction-prompt="none"></model-viewer>
+                    <h3>${gun.name}</h3>
+                    <p>${gun.skin}</p>
+                </div>
+            `;
+        });
+
+        function openGun(index) {
+            currentGunIndex = index;
+            const modal = document.getElementById('fullview-modal');
+            const container = document.getElementById('viewer-container');
+            const status = document.getElementById('status-display');
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            status.innerHTML = "LOADING WEAPON...";
+
+            container.innerHTML = `
+                <model-viewer 
+                    id="full-viewer"
+                    src="${guns[index].file}" 
+                    camera-controls 
+                    auto-rotate
+                    shadow-intensity="2"
+                    exposure="1.2"
+                    style="width: 100%; height: 100%;">
+                </model-viewer>
+                <div style="position:absolute; bottom:30px; width:100%; text-align:center; font-family:'Orbitron'; pointer-events:none;">
+                    <h2 style="color:var(--neon-yellow); font-size:2rem;">${guns[index].name}</h2>
+                    <p style="letter-spacing:3px;">${guns[index].skin}</p>
+                </div>
+            `;
+
+            const viewer = document.getElementById('full-viewer');
+            viewer.addEventListener('load', () => { status.innerHTML = ""; });
+        }
+
+        function changeGun(step) {
+            currentGunIndex += step;
+            if (currentGunIndex >= guns.length) currentGunIndex = 0;
+            if (currentGunIndex < 0) currentGunIndex = guns.length - 1;
+            openGun(currentGunIndex);
+        }
+
+        function closeGun() {
+            document.getElementById('fullview-modal').style.display = 'none';
+            document.getElementById('viewer-container').innerHTML = ''; 
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
