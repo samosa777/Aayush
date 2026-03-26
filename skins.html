@@ -14,7 +14,7 @@
             --neon-orange: #ff4e00;
             --neon-yellow: #f5ed00;
             --bg-dark: #020202;
-            --glow: 0 0 30px rgba(255, 78, 0, 0.7);
+            --glow: 0 0 20px rgba(255, 78, 0, 0.6);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -79,33 +79,39 @@
             border: none; font-size: 0.8rem;
         }
 
-        /* Nav Buttons Base Style */
+        /* Nav Buttons Base */
         .nav-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
             background: transparent;
-            color: var(--neon-orange);
             border: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
             cursor: pointer; z-index: 20001;
             transition: 0.3s ease;
-            text-shadow: 0 0 15px var(--neon-orange);
-            user-select: none;
+            display: flex; align-items: center; justify-content: center;
+            padding: 10px;
         }
+
+        /* SVG Arrow Styling */
+        .nav-btn svg {
+            fill: var(--neon-orange);
+            width: 50px; height: 50px;
+            filter: drop-shadow(0 0 10px var(--neon-orange));
+        }
+
+        .nav-btn:hover svg { fill: var(--neon-yellow); filter: drop-shadow(0 0 15px var(--neon-yellow)); }
 
         .prev { left: 30px; }
         .next { right: 30px; }
 
         /* Bottom Info & Navigation Container */
         .modal-footer {
-            position: absolute; bottom: 40px; width: 100%;
+            position: absolute; bottom: 30px; width: 100%;
             display: flex; align-items: center; justify-content: center;
-            gap: 20px; padding: 0 20px; z-index: 20002;
+            gap: 15px; padding: 0 15px; z-index: 20002;
         }
 
-        .modal-info { text-align: center; pointer-events: none; }
-        .modal-info h2 { color: var(--neon-yellow); font-size: clamp(1.2rem, 5vw, 2.5rem); text-shadow: 0 0 10px #000; }
-        .modal-info p { color: #fff; letter-spacing: 2px; font-size: clamp(0.8rem, 3vw, 1.2rem); }
+        .modal-info { text-align: center; pointer-events: none; min-width: 150px; }
+        .modal-info h2 { color: var(--neon-yellow); font-size: clamp(1rem, 5vw, 2.2rem); text-shadow: 0 0 10px #000; }
+        .modal-info p { color: #fff; letter-spacing: 1.5px; font-size: clamp(0.7rem, 3vw, 1rem); opacity: 0.8; }
 
         .elite-btn {
             background: var(--neon-orange); color: #000; padding: 8px 15px;
@@ -120,35 +126,31 @@
             text-align: center; width: 100%;
         }
 
-        /* --- MOBILE & TABLET ADAPTATION --- */
+        /* --- MOBILE ADAPTATION --- */
         @media (max-width: 768px) {
-            /* Arrows moved from sides to bottom next to name */
             .nav-btn {
-                position: static; /* Remove absolute positioning */
+                position: static; 
                 transform: none;
-                font-size: 2rem;
-                background: #111;
-                border: 2px solid var(--neon-orange);
-                width: 60px; height: 60px;
-                display: flex; align-items: center; justify-content: center;
-                border-radius: 10px;
-                box-shadow: 0 0 10px var(--neon-orange);
+                background: rgba(255, 78, 0, 0.1);
+                border: 1.5px solid var(--neon-orange);
+                width: 55px; height: 55px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(255, 78, 0, 0.3);
             }
             
+            .nav-btn svg { width: 30px; height: 30px; }
+
             .modal-footer {
                 bottom: 20px;
-                justify-content: space-between; /* Space between: Arrow - Info - Arrow */
-                background: rgba(0,0,0,0.6);
-                padding: 15px;
-                backdrop-filter: blur(5px);
-                border-top: 1px solid #333;
+                justify-content: space-between; 
+                background: rgba(0,0,0,0.8);
+                padding: 12px;
+                border-top: 1px solid rgba(255, 78, 0, 0.3);
+                border-radius: 15px 15px 0 0;
             }
 
             .gallery-container { grid-template-columns: 1fr; }
             section { padding-top: 90px; }
-            
-            .modal-info h2 { font-size: 1.2rem; }
-            .modal-info p { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -170,12 +172,16 @@
         <button class="close-btn" onclick="closeGun()">CLOSE [X]</button>
         
         <div class="modal-footer">
-            <button class="nav-btn prev" onclick="changeGun(-1)">&#11164;</button>
+            <button class="nav-btn prev" onclick="changeGun(-1)">
+                <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
             
             <div class="modal-info" id="gun-details">
                 </div>
             
-            <button class="nav-btn next" onclick="changeGun(1)">&#11166;</button>
+            <button class="nav-btn next" onclick="changeGun(1)">
+                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
         </div>
 
         <div id="status-display" class="status-msg"></div>
@@ -213,15 +219,13 @@
             
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
-            status.innerHTML = "LOADING WEAPON...";
+            status.innerHTML = "CALIBRATING...";
 
-            // Set Details
             details.innerHTML = `
                 <h2>${guns[index].name}</h2>
                 <p>${guns[index].skin}</p>
             `;
 
-            // Set 3D Model
             container.innerHTML = `
                 <model-viewer 
                     id="full-viewer"
