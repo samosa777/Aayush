@@ -48,7 +48,7 @@
         }
         .massive-header span { color: #fff; -webkit-text-stroke: 0px; text-shadow: var(--glow); }
 
-        /* Gallery Grid */
+        /* Gallery Grid - Responsive for Desktop, Tab, Mobile */
         .gallery-container {
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -64,7 +64,7 @@
 
         .gun-card model-viewer { width: 100%; height: 220px; background: #000; margin-bottom: 10px; border-radius: 5px; }
         .gun-card h3 { font-family: 'Orbitron'; color: var(--neon-yellow); font-size: 1.2rem; }
-        .gun-card p { color: #888; font-weight: bold; letter-spacing: 1px; font-size: 0.9rem; }
+        .gun-card p { color: #888; font-weight: bold; letter-spacing: 1px; font-size: 0.9rem; min-height: 1.2rem; }
 
         /* Modal Area */
         #fullview-modal {
@@ -126,7 +126,7 @@
             text-align: center; width: 100%;
         }
 
-        /* --- MOBILE ADAPTATION --- */
+        /* --- MOBILE & TAB ADAPTATION --- */
         @media (max-width: 768px) {
             .nav-btn {
                 position: static; 
@@ -149,7 +149,7 @@
                 border-radius: 15px 15px 0 0;
             }
 
-            .gallery-container { grid-template-columns: 1fr; }
+            .gallery-container { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
             section { padding-top: 90px; }
         }
     </style>
@@ -176,8 +176,7 @@
                 <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
             </button>
             
-            <div class="modal-info" id="gun-details">
-                </div>
+            <div class="modal-info" id="gun-details"></div>
             
             <button class="nav-btn next" onclick="changeGun(1)">
                 <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
@@ -189,34 +188,37 @@
     </div>
 
     <script>
+        // FIXED ARRAY: Added missing commas at line 5 and 11
         const guns = [
             { file: 'xm8_evo.glb', name: 'EVO XM8', skin: 'GUARDIAN SKIN' },
             { file: 'cobra_mp40.glb', name: 'MP40', skin: 'COBRA MAX' },
             { file: 'ump.glb', name: 'UMP', skin: 'GATORS PAPERCUT' },
             { file: 'm1887.glb', name: 'M1887', skin: 'ELEMENT' },
-            { file: 'green_flame_draco_m1014_evo.glb', name: 'M1014', skin: 'GREEN FLAME DARCO' }
+            { file: 'green_flame_draco_m1014_evo.glb', name: 'M1014', skin: 'GREEN FLAME DARCO' },
             { file: 'kriss_vector.glb', name: 'KRISS VECTOR', skin: 'KRISS' },
             { file: 'assault_rifle.glb', name: 'SA80', skin: 'ASSAULT RIFLE' },
             { file: 'awm.glb', name: 'AWM', skin: 'CAMO' },
             { file: 'desert_eagle.glb', name: 'DESERT EAGLE', skin: 'PISTOL' },
             { file: 'woodpecker.glb', name: 'WOODPECKER', skin: 'MARKSMAN RIFLE' },
-            { file: 'golden_sakura_bundel.glb', name: 'GOLDEN SAKURA' }
-            { file: 'bunny_bundle.glb', name: 'BUNNY BUNDLE' },
-            { file: 'criminal_bundle.glb', name: 'CRIMINAL' },
-            { file: 'cool_bundle.glb', name: 'COOL' },
-            { file: 'hip_hop_bundel.glb', name: 'HIP HOP' },
-            { file: 'blue_phoenix.glb', name: 'BLUE PHOENIX' }
+            { file: 'golden_sakura_bundel.glb', name: 'GOLDEN SAKURA', skin: '' },
+            { file: 'bunny_bundle.glb', name: 'BUNNY BUNDLE', skin: '' },
+            { file: 'criminal_bundle.glb', name: 'CRIMINAL', skin: '' },
+            { file: 'cool_bundle.glb', name: 'COOL', skin: '' },
+            { file: 'hip_hop_bundel.glb', name: 'HIP HOP', skin: '' },
+            { file: 'blue_phoenix.glb', name: 'BLUE PHOENIX', skin: '' }
         ];
 
         let currentGunIndex = 0;
 
         const gallery = document.getElementById('gallery');
         guns.forEach((gun, index) => {
+            // Added safe check for empty skins so it doesn't print "undefined"
+            let skinText = gun.skin ? gun.skin : '&nbsp;'; 
             gallery.innerHTML += `
                 <div class="gun-card" onclick="openGun(${index})">
                     <model-viewer src="${gun.file}" auto-rotate interaction-prompt="none" shadow-intensity="1"></model-viewer>
                     <h3>${gun.name}</h3>
-                    <p>${gun.skin}</p>
+                    <p>${skinText}</p>
                 </div>
             `;
         });
@@ -232,9 +234,11 @@
             document.body.style.overflow = 'hidden';
             status.innerHTML = "CALIBRATING...";
 
+            let modalSkinText = guns[index].skin ? guns[index].skin : '';
+
             details.innerHTML = `
                 <h2>${guns[index].name}</h2>
-                <p>${guns[index].skin}</p>
+                <p>${modalSkinText}</p>
             `;
 
             container.innerHTML = `
